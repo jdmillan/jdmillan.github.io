@@ -48,6 +48,7 @@ body { background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--sans);
 body[data-section="work"] { --c1: #ff5a1f; --c2: #ff1f7a; --c3: #f5a00b; }
 body[data-section="experience"] { --c1: #2563ff; --c2: #8b3dff; --c3: #00c2d8; }
 body[data-section="skills"] { --c1: #f5a00b; --c2: #00c48c; --c3: #3b6bff; }
+body[data-section="hobbies"] { --c1: #ff3d3d; --c2: #ff8a00; --c3: #8b3dff; }
 body[data-section="contact"] { --c1: #ff1f7a; --c2: #ff6b1a; --c3: #8b3dff; }
 .aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
 .aurora span { position: absolute; width: 50vmax; height: 50vmax; border-radius: 50%; filter: blur(110px) saturate(1.3); opacity: .5; }
@@ -95,7 +96,8 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .slot:has(img)::before, .slot:has(img)::after { display: none; }
 
 /* ---------- Nav ---------- */
-.top { position: fixed; inset: 0 0 auto; z-index: 10; border-bottom: 1px solid transparent; background: rgba(6,4,11,.4); backdrop-filter: blur(16px) saturate(1.4); transition: border-color .3s, background .3s; }
+.top { position: fixed; inset: 0 0 auto; z-index: 10; border-bottom: 1px solid transparent; background: rgba(6,4,11,.4); backdrop-filter: blur(16px) saturate(1.4); transition: border-color .3s, background .3s, opacity 1s var(--ease) .2s, transform 1.2s var(--ease) .2s; }
+main { transition: opacity 1s var(--ease) .2s, transform 1.2s var(--ease) .2s; }
 .top.scrolled { border-color: var(--line); background: rgba(6,4,11,.72); }
 .top .wrap { max-width: var(--wrap); height: 72px; margin: 0 auto; padding: 0 var(--s5); display: flex; align-items: center; justify-content: space-between; gap: var(--s4); }
 .mark { flex: none; font-size: 17px; font-weight: 600; letter-spacing: -.02em; text-decoration: none; white-space: nowrap; }
@@ -233,6 +235,33 @@ h1 { margin-top: var(--s5); font-size: clamp(38px, 4.4vw, 60px); }
   .stat:nth-child(3) { padding-left: 0; }
   .foot { flex-direction: column; gap: var(--s2); }
 }
+/* Hobbies */
+.hobbies { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s5); }
+.hobby { overflow: hidden; transition: transform .5s var(--ease), border-color .4s, box-shadow .5s var(--ease); }
+.hobby:hover { transform: translateY(-4px); border-color: var(--line-2); }
+.hobby .slot { --ar: 4 / 5; border-radius: 0; border-width: 0 0 1px; }
+.hobby .body { padding: var(--s5); }
+.hobby h3 { margin-top: var(--s2); font-size: 22px; letter-spacing: -.02em; }
+.hobby p { margin-top: var(--s2); font-size: 15px; color: var(--ink-2); }
+@media (max-width: 900px) { .hobbies { grid-template-columns: 1fr 1fr; } .hobby .slot { --ar: 1 / 1; } }
+
+/* ---------- Intro: ride in on a motorcycle (once per visit) ---------- */
+.intro { display: none; position: fixed; inset: 0; z-index: 100; overflow: hidden; background: #06040b; cursor: pointer; transition: opacity .8s var(--ease), transform .9s cubic-bezier(.7, 0, .84, 0), filter .8s; }
+.riding .intro, .intro.out { display: block; }
+.intro.out { opacity: 0; transform: scale(1.7); filter: blur(10px); pointer-events: none; }
+html.riding { overflow: hidden; }
+.riding main, .riding .top { opacity: 0; transform: scale(1.06); }
+.ride { position: absolute; inset: -4%; animation: lean 2.6s ease-in-out both; }
+.ride::after { content: ""; position: absolute; inset: 0; background: radial-gradient(90% 80% at 50% 55%, transparent 40%, rgba(6,4,11,.85)); pointer-events: none; }
+.ride canvas { width: 100%; height: 100%; display: block; animation: rumble .08s linear infinite; }
+@keyframes lean { 30% { rotate: -1.6deg; } 70% { rotate: 1.2deg; } 100% { rotate: 0deg; } }
+@keyframes rumble { 50% { translate: 0 1.5px; } }
+.sign { position: absolute; left: 50%; top: 42%; z-index: 1; text-align: center; white-space: nowrap; opacity: 0; transform: translate(-50%, -50%) scale(.12); will-change: transform; }
+.sign span { display: block; font: 600 clamp(40px, 7vw, 96px)/1 var(--sans); letter-spacing: -.04em; text-shadow: 0 0 40px rgba(255,77,148,.55); }
+.sign small { display: block; margin-top: var(--s3); font: 500 13px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+.bars { position: absolute; left: 50%; bottom: -2px; width: max(760px, min(1200px, 100vw)); transform: translateX(-50%); animation: rumble .08s linear infinite; }
+.skip { position: absolute; top: var(--s5); right: var(--s5); z-index: 2; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
@@ -241,7 +270,34 @@ h1 { margin-top: var(--s5); font-size: clamp(38px, 4.4vw, 60px); }
 </style>
 </head>
 <body>
-<script>document.documentElement.classList.add("js")</script>
+<script>
+document.documentElement.classList.add("js");
+try { if (!sessionStorage.rode && !matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("riding"); } catch (e) {}
+</script>
+<div class="intro" id="intro">
+  <div class="ride" aria-hidden="true">
+    <canvas id="road"></canvas>
+    <div class="sign" id="sign"><span>Juan Cabrera</span><small>Software · Data · U.S. Navy veteran</small></div>
+  </div>
+  <svg class="bars" viewBox="0 0 1200 300" aria-hidden="true">
+    <defs><linearGradient id="mir" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4d94" stop-opacity=".35"/><stop offset="1" stop-color="#a78bfa" stop-opacity=".1"/></linearGradient></defs>
+    <g fill="#0a0710" stroke="rgba(255,255,255,.1)" stroke-width="2">
+      <path d="M330 232 L262 128" stroke="#0a0710" stroke-width="10"/>
+      <path d="M870 232 L938 128" stroke="#0a0710" stroke-width="10"/>
+      <ellipse cx="240" cy="108" rx="74" ry="40"/><ellipse cx="240" cy="108" rx="60" ry="29" fill="url(#mir)" stroke="none"/>
+      <ellipse cx="960" cy="108" rx="74" ry="40"/><ellipse cx="960" cy="108" rx="60" ry="29" fill="url(#mir)" stroke="none"/>
+      <path d="M60 218 Q300 252 600 246 Q900 252 1140 218" fill="none" stroke="#0a0710" stroke-width="24" stroke-linecap="round"/>
+      <path d="M36 206 L140 224" stroke="#110c18" stroke-width="36" stroke-linecap="round"/>
+      <path d="M1060 224 L1164 206" stroke="#110c18" stroke-width="36" stroke-linecap="round"/>
+      <ellipse cx="600" cy="330" rx="300" ry="80" fill="#08060d"/>
+      <rect x="470" y="176" width="260" height="150" rx="44"/>
+    </g>
+    <text id="mph" x="600" y="252" text-anchor="middle" fill="#f5f3fa" font-family="Geist Mono, monospace" font-size="58" font-weight="500">0</text>
+    <text x="600" y="282" text-anchor="middle" fill="#8c869c" font-family="Geist Mono, monospace" font-size="15" letter-spacing="3">MPH</text>
+    <text id="gear" x="690" y="214" text-anchor="middle" fill="#34d399" font-family="Geist Mono, monospace" font-size="20">1</text>
+  </svg>
+  <button class="btn sm skip" id="skip">Skip intro</button>
+</div>
 <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
 
 <header class="top" id="top">
@@ -252,6 +308,7 @@ h1 { margin-top: var(--s5); font-size: clamp(38px, 4.4vw, 60px); }
       <a href="#work">Work</a>
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
+      <a href="#hobbies">Hobbies</a>
       <a href="#contact">Contact</a>
       <span class="ink" aria-hidden="true"></span>
     </nav>
@@ -422,9 +479,35 @@ h1 { margin-top: var(--s5); font-size: clamp(38px, 4.4vw, 60px); }
     </div>
   </section>
 
-  <!-- 05 Contact -->
+  <!-- 05 Hobbies -->
+  <section id="hobbies">
+    <div class="head r">
+      <div><span class="label">05 — Off the clock</span><h2>Outside of work</h2></div>
+      <p>What I'm into when I'm not coding or studying.</p>
+    </div>
+    <div class="hobbies">
+      <article class="card hobby r">
+        <figure class="slot" data-label="Riding photo" data-file="img/hobby-moto.jpg"><img src="img/hobby-moto.jpg" alt="Juan's motorcycle" onerror="this.remove()"></figure>
+        <div class="body"><span class="label">01</span><h3>Motorcycles</h3><p>Riding is how I reset. Open road, no notifications.</p></div>
+      </article>
+      <article class="card hobby r">
+        <figure class="slot" data-label="Soccer photo" data-file="img/hobby-soccer.jpg"><img src="img/hobby-soccer.jpg" alt="Playing soccer" onerror="this.remove()"></figure>
+        <div class="body"><span class="label">02</span><h3>Soccer</h3><p>Playing or watching, it's my favorite team sport.</p></div>
+      </article>
+      <article class="card hobby r">
+        <figure class="slot" data-label="Gaming photo" data-file="img/hobby-games.jpg"><img src="img/hobby-games.jpg" alt="Gaming setup" onerror="this.remove()"></figure>
+        <div class="body"><span class="label">03</span><h3>Video games</h3><p>Where the Aim Trainer came from. I like knowing how games are built, not just playing them.</p></div>
+      </article>
+      <article class="card hobby r">
+        <figure class="slot" data-label="Gym photo" data-file="img/hobby-gym.jpg"><img src="img/hobby-gym.jpg" alt="At the gym" onerror="this.remove()"></figure>
+        <div class="body"><span class="label">04</span><h3>Gym</h3><p>A habit the Navy built that stuck. Consistent training, every week.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 06 Contact -->
   <section id="contact">
-    <span class="label r">05 — Contact</span>
+    <span class="label r">06 — Contact</span>
     <h2 class="r">Let's <em>talk.</em></h2>
     <p class="lede r">Hiring software engineering or data interns? I'd love to hear about the role.</p>
     <a class="email r" href="mailto:jdcm0212@gmail.com">jdcm0212@gmail.com</a>
@@ -488,10 +571,92 @@ const rv = new IntersectionObserver(entries => {
     rv.unobserve(e.target);
   }
 }, { rootMargin: "0px 0px -8% 0px" });
-$$(".r").forEach(el => {
+const startSite = () => $$(".r").forEach(el => {
   el.style.setProperty("--i", [...el.parentElement.children].filter(c => c.classList.contains("r")).indexOf(el));
   rv.observe(el);
 });
+
+// Intro: first-person ride down a road into the site. Plays once per visit.
+const intro = $("#intro");
+if (!document.documentElement.classList.contains("riding")) { intro.remove(); startSite(); }
+else {
+  const cv = $("#road"), ctx = cv.getContext("2d"), sign = $("#sign"), mph = $("#mph"), gear = $("#gear");
+  const DUR = 2600, COLORS = ["#ff4d94", "#a78bfa", "#ffa25c", "#ffffff"];
+  let W, H, dpr, done = false;
+  const size = () => { dpr = Math.min(devicePixelRatio, 2); W = cv.width = cv.clientWidth * dpr; H = cv.height = cv.clientHeight * dpr; };
+  size(); addEventListener("resize", size);
+  const dashes = Array.from({ length: 14 }, (_, i) => i / 14);
+  const streaks = Array.from({ length: 140 }, () => ({ a: Math.random() * Math.PI * 2, r: Math.random(), c: COLORS[Math.random() * 4 | 0] }));
+  const t0 = performance.now(); let last = t0;
+
+  const draw = (v, dt) => {
+    const hy = H * .42, cx = W / 2, top = W * .006, bot = W * .75;
+    let g = ctx.createLinearGradient(0, 0, 0, hy);
+    g.addColorStop(0, "#06040b"); g.addColorStop(1, "#1a0b24");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, hy);
+    ctx.fillStyle = "#07050c"; ctx.fillRect(0, hy, W, H - hy);
+    g = ctx.createRadialGradient(cx, hy, 0, cx, hy, W * .5);
+    g.addColorStop(0, "rgba(255,77,148,.4)"); g.addColorStop(1, "rgba(255,77,148,0)");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    // Road and edge lines
+    ctx.beginPath(); ctx.moveTo(cx - top, hy); ctx.lineTo(cx + top, hy); ctx.lineTo(cx + bot, H); ctx.lineTo(cx - bot, H); ctx.closePath();
+    g = ctx.createLinearGradient(0, hy, 0, H); g.addColorStop(0, "#120c1c"); g.addColorStop(1, "#211830");
+    ctx.fillStyle = g; ctx.fill();
+    ctx.strokeStyle = "rgba(255,255,255,.35)"; ctx.lineWidth = 2 * dpr; ctx.beginPath();
+    ctx.moveTo(cx - top, hy); ctx.lineTo(cx - bot * .94, H); ctx.moveTo(cx + top, hy); ctx.lineTo(cx + bot * .94, H); ctx.stroke();
+    // Center dashes rush toward the rider
+    for (let i = 0; i < dashes.length; i++) {
+      dashes[i] = (dashes[i] + dt * v * 1.6) % 1;
+      const p = dashes[i], f1 = p ** 3, f2 = Math.min(1, p + .035) ** 3;
+      const y1 = hy + (H - hy) * f1, y2 = hy + (H - hy) * f2;
+      const w1 = (top + (bot - top) * f1) * .012, w2 = (top + (bot - top) * f2) * .012;
+      ctx.fillStyle = `rgba(255,220,150,${.3 + .6 * p})`;
+      ctx.beginPath(); ctx.moveTo(cx - w1, y1); ctx.lineTo(cx + w1, y1); ctx.lineTo(cx + w2, y2); ctx.lineTo(cx - w2, y2); ctx.fill();
+    }
+    // Headlight on the road
+    ctx.save(); ctx.translate(cx, H * .85); ctx.scale(2.4, 1);
+    g = ctx.createRadialGradient(0, 0, 0, 0, 0, H * .32);
+    g.addColorStop(0, "rgba(255,240,210,.2)"); g.addColorStop(1, "rgba(255,240,210,0)");
+    ctx.fillStyle = g; ctx.fillRect(-W, -H, W * 2, H * 2); ctx.restore();
+    // Speed streaks stretch with speed
+    const R = Math.hypot(W, H) * .6; ctx.lineCap = "round";
+    for (const s of streaks) {
+      s.r += dt * v * (.25 + s.r * 2.2);
+      if (s.r > 1.2) { s.r = Math.random() * .15; s.a = Math.random() * Math.PI * 2; }
+      const r1 = s.r * R, r2 = Math.max(0, s.r - .03 - v * .2 * s.r) * R;
+      ctx.globalAlpha = Math.min(1, s.r) * (.2 + .6 * v);
+      ctx.strokeStyle = s.c; ctx.lineWidth = (.6 + s.r * 2) * dpr;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(s.a) * r2, hy + Math.sin(s.a) * r2 * .7);
+      ctx.lineTo(cx + Math.cos(s.a) * r1, hy + Math.sin(s.a) * r1 * .7);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  };
+
+  const finish = () => {
+    if (done) return; done = true;
+    try { sessionStorage.rode = 1; } catch (e) {}
+    intro.classList.add("out");
+    document.documentElement.classList.remove("riding");
+    startSite();
+    setTimeout(() => intro.remove(), 1000);
+  };
+  const frame = now => {
+    if (done) return;
+    const t = Math.min((now - t0) / DUR, 1), dt = Math.min((now - last) / 1000, .05); last = now;
+    const v = .12 + .88 * t ** 3;
+    draw(v, dt);
+    const speed = Math.round(v * 92);
+    mph.textContent = speed; gear.textContent = 1 + Math.min(4, Math.floor(speed / 20));
+    sign.style.opacity = Math.min(1, t * 3);
+    sign.style.transform = `translate(-50%, -50%) scale(${.12 + t ** 2.2 * 1.4})`;
+    t < 1 ? requestAnimationFrame(frame) : finish();
+  };
+  requestAnimationFrame(frame);
+  intro.addEventListener("click", finish);
+  addEventListener("keydown", finish, { once: true });
+}
 
 // Soft spotlight follows the pointer on cards.
 $$(".card").forEach(c => c.addEventListener("pointermove", e => {
