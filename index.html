@@ -4,268 +4,231 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Juan Cabrera — Software & Data</title>
-<meta name="description" content="Juan Cabrera: computer science student at St. John's University and U.S. Navy veteran, looking for software engineering and data internships.">
+<meta name="description" content="Juan Cabrera: computer science student at St. John's University in Queens, NY, and U.S. Navy veteran, looking for software engineering and data internships.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ---------- Design tokens ---------- */
 :root {
-  /* Color */
-  --bg: #06040b;
-  --surface: rgba(255, 255, 255, .045);
-  --surface-2: rgba(255, 255, 255, .08);
-  --line: rgba(255, 255, 255, .1);
-  --line-2: rgba(255, 255, 255, .18);
-  --ink: #f5f3fa;
-  --ink-2: #c4bfd2;
-  --ink-3: #8c869c;
-  --accent: #ff4d94;
-  --ok: #34d399;
-  --grad: linear-gradient(95deg, #ff4d94, #a78bfa 50%, #ffa25c);
-  /* Type: Geist for UI and headings, Geist Mono for labels and data, Instrument Serif italic for emphasis */
+  --bg: #0b0a0e;
+  --panel: #111016;
+  --line: #22202a;
+  --line-2: #2e2b38;
+  --ink: #ecebf1;
+  --ink-2: #a4a2ae;
+  --ink-3: #6d6b77;
+  --violet: #b5a8f7;
+  --gold: #e8c45a;
   --sans: "Geist", system-ui, sans-serif;
   --mono: "Geist Mono", ui-monospace, monospace;
-  --serif: "Instrument Serif", Georgia, serif;
-  /* Spacing: 4px base, 8px rhythm */
-  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px;
-  /* Shape and motion */
-  --r1: 10px; --r2: 16px; --r3: 24px;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px; --s9: 128px;
+  --r: 14px;
   --ease: cubic-bezier(.22, 1, .36, 1);
-  --wrap: 1200px;
+  --wrap: 1080px;
   color-scheme: dark;
 }
-
-/* Background colors fade when the section changes */
-@property --c1 { syntax: "<color>"; inherits: true; initial-value: #ff1f7a; }
-@property --c2 { syntax: "<color>"; inherits: true; initial-value: #7c3aed; }
-@property --c3 { syntax: "<color>"; inherits: true; initial-value: #ff6b1a; }
-
 * { box-sizing: border-box; margin: 0; }
 [hidden] { display: none !important; }
-html { scroll-snap-type: y proximity; scroll-behavior: smooth; scroll-padding-top: 72px; }
-body { background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; transition: --c1 1.4s var(--ease), --c2 1.4s var(--ease), --c3 1.4s var(--ease); }
-body[data-section="work"] { --c1: #ff5a1f; --c2: #ff1f7a; --c3: #f5a00b; }
-body[data-section="experience"] { --c1: #2563ff; --c2: #8b3dff; --c3: #00c2d8; }
-body[data-section="skills"] { --c1: #f5a00b; --c2: #00c48c; --c3: #3b6bff; }
-body[data-section="hobbies"] { --c1: #ff3d3d; --c2: #ff8a00; --c3: #8b3dff; }
-body[data-section="contact"] { --c1: #ff1f7a; --c2: #ff6b1a; --c3: #8b3dff; }
-.aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
-.aurora span { position: absolute; width: 50vmax; height: 50vmax; border-radius: 50%; filter: blur(110px) saturate(1.3); opacity: .5; }
-.aurora::after { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 45%, transparent 35%, rgba(6,4,11,.75)); }
-.aurora span:nth-child(1) { background: var(--c1); top: -25vmax; left: -15vmax; animation: float1 22s ease-in-out infinite alternate; }
-.aurora span:nth-child(2) { background: var(--c2); top: 10vmax; right: -25vmax; animation: float2 26s ease-in-out infinite alternate; }
-.aurora span:nth-child(3) { background: var(--c3); bottom: -30vmax; left: 15vmax; animation: float3 30s ease-in-out infinite alternate; }
-@keyframes float1 { to { transform: translate(18vw, 14vh) scale(1.15); } }
-@keyframes float2 { to { transform: translate(-16vw, 18vh) scale(.9); } }
-@keyframes float3 { to { transform: translate(12vw, -16vh) scale(1.1); } }
-
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.65 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 a { color: inherit; }
-img { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; height: auto; }
 ul, ol { list-style: none; padding: 0; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
-h1, h2, h3 { font-weight: 600; letter-spacing: -.03em; line-height: 1.06; }
-em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; padding-right: .06em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.label { font: 500 12px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s5); }
+.mono { font-family: var(--mono); }
+.label { font: 500 12px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.muted { color: var(--ink-2); }
+.now { color: var(--gold); }
 
-/* ---------- Building blocks ---------- */
-.card { position: relative; }
-.chips { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); }
-.chip { font-size: 15px; font-weight: 500; color: var(--ink); white-space: nowrap; }
-/* Logo chips: devicon logos, tinted white so they match the type */
-.chip.logo { display: inline-flex; align-items: center; gap: 8px; }
-.chip.logo img { width: 16px; height: 16px; filter: brightness(0) invert(1); opacity: .85; }
-.chip.logo img + img { margin-left: -2px; }
-.btn { display: inline-flex; align-items: center; gap: var(--s2); height: 46px; padding: 0 var(--s5); border-radius: 999px; border: 1px solid var(--line-2); background: var(--surface); backdrop-filter: blur(12px); font-size: 15px; font-weight: 500; text-decoration: none; white-space: nowrap; transition: transform .4s var(--ease), border-color .3s, background .3s; }
-.btn:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.4); }
-.btn.primary { background: var(--ink); border-color: transparent; color: #0b0812; }
-.btn.sm { height: 36px; padding: 0 var(--s4); font-size: 14px; }
-.btn svg { width: 16px; height: 16px; flex: none; }
-.btn .arr { transition: transform .4s var(--ease); }
-.btn:hover .arr { transform: translate(3px, 0); }
+/* Building blocks */
+.btn { display: inline-flex; align-items: center; gap: var(--s2); height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 14px; font-weight: 500; text-decoration: none; white-space: nowrap; transition: border-color .3s, background .3s, transform .4s var(--ease); }
+.btn:hover { border-color: #4a4656; transform: translateY(-1px); }
+.btn.solid { background: var(--ink); color: var(--bg); border-color: transparent; }
+.btn.sm { height: 34px; padding: 0 14px; font-size: 13px; }
+.pills { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line-2); font: 400 12px/1.6 var(--mono); color: var(--ink-2); white-space: nowrap; }
+.pill img { width: 13px; height: 13px; filter: brightness(0) invert(1); opacity: .8; }
+.box { border: 1px solid var(--line); border-radius: var(--r); background: var(--panel); }
 
-/* Image slot: drop a file at data-file and it fills in. Until then it shows a labeled placeholder. */
-.slot { position: relative; aspect-ratio: var(--ar, 4 / 3); border-radius: var(--r2); overflow: hidden; display: grid; place-content: center; gap: 6px; padding: var(--s4); text-align: center; border: 1px dashed var(--line-2); background: repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 10px, transparent 10px 20px), var(--surface); }
-.slot::before { content: attr(data-label); font-size: 15px; font-weight: 500; color: var(--ink-2); }
-.slot::after { content: "Add " attr(data-file); font: 400 12px var(--mono); color: var(--ink-3); }
+/* Image slot: drop a file at data-file and it fills in */
+.slot { position: relative; aspect-ratio: var(--ar, 4 / 3); border-radius: var(--r); overflow: hidden; display: grid; place-content: center; gap: 4px; padding: var(--s3); text-align: center; border: 1px dashed var(--line-2); background: repeating-linear-gradient(135deg, rgba(255,255,255,.02) 0 10px, transparent 10px 20px), var(--panel); }
+.slot::before { content: attr(data-label); font-size: 14px; color: var(--ink-2); }
+.slot::after { content: "Add " attr(data-file); font: 400 11px var(--mono); color: var(--ink-3); }
 .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.slot:has(img) { border-style: solid; border-color: var(--line); }
+.slot:has(img) { border: 1px solid var(--line); }
 .slot:has(img)::before, .slot:has(img)::after { display: none; }
 
-/* ---------- Nav ---------- */
-.top { position: fixed; inset: 0 0 auto; z-index: 10; border-bottom: 1px solid transparent; background: rgba(6,4,11,.4); backdrop-filter: blur(16px) saturate(1.4); transition: border-color .3s, background .3s, opacity 1s var(--ease) .2s, transform 1.2s var(--ease) .2s; }
-main { transition: opacity 1s var(--ease) .2s, transform 1.2s var(--ease) .2s; }
-.top.scrolled { border-color: var(--line); background: rgba(6,4,11,.72); }
-.top .wrap { max-width: var(--wrap); height: 72px; margin: 0 auto; padding: 0 var(--s5); display: flex; align-items: center; justify-content: space-between; gap: var(--s4); }
-.mark { flex: none; font-size: 17px; font-weight: 600; letter-spacing: -.02em; text-decoration: none; white-space: nowrap; }
-.tabs { position: relative; display: flex; gap: var(--s6); overflow-x: auto; scrollbar-width: none; }
-.tabs a { padding: 6px 0; font-size: 14px; font-weight: 500; color: var(--ink-3); text-decoration: none; white-space: nowrap; transition: color .3s var(--ease); }
-.tabs a:hover, .tabs a[aria-current="true"] { color: var(--ink); }
-.ink { position: absolute; bottom: 0; left: 0; width: 0; height: 2px; border-radius: 2px; background: var(--grad); transition: left .5s var(--ease), width .5s var(--ease); }
+/* Nav */
+.top { position: fixed; inset: 0 0 auto; z-index: 10; background: rgba(11,10,14,.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.top .wrap { height: 64px; display: flex; align-items: center; justify-content: space-between; gap: var(--s4); }
+.name { font-size: 15px; font-weight: 500; text-decoration: none; white-space: nowrap; }
+.nav { display: flex; gap: var(--s6); }
+.nav a { font: 400 13px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); text-decoration: none; transition: color .3s; }
+.nav a:hover, .nav a[aria-current="true"] { color: var(--ink); }
 
-/* ---------- Sections ---------- */
-section { position: relative; max-width: var(--wrap); margin: 0 auto; padding: var(--s9) var(--s5); display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
-.head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s6); margin-bottom: var(--s7); padding-bottom: var(--s5); border-bottom: 1px solid var(--line); }
-.head h2 { margin-top: var(--s3); font-size: clamp(36px, 5vw, 60px); }
-.head p { max-width: 38ch; color: var(--ink-2); font-size: 16px; }
+/* Sections */
+section.wrap { padding-top: var(--s9); }
+.sec-label { display: block; margin-bottom: var(--s4); }
+h2 { font-size: clamp(32px, 4vw, 44px); font-weight: 400; letter-spacing: -.03em; line-height: 1.1; margin-bottom: var(--s7); }
 
-#about, #contact { min-height: 100svh; }
-#about { padding-top: 112px; }
+/* Hero */
+section.wrap.hero { padding-top: 148px; }
+.hero-grid { display: grid; grid-template-columns: 1fr auto; gap: var(--s7); align-items: end; }
+.prompt { font: 400 15px var(--mono); color: var(--violet); min-height: 1.6em; }
+.caret { display: inline-block; width: .55em; height: 1.1em; margin-left: 2px; vertical-align: -3px; background: var(--violet); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+h1 { margin-top: var(--s5); font-size: clamp(56px, 10vw, 128px); font-weight: 300; letter-spacing: -.045em; line-height: .92; text-transform: uppercase; }
+h1 span { display: block; }
+.role { margin-top: var(--s5); font-size: clamp(18px, 2vw, 22px); color: var(--ink-2); }
+.portrait { --ar: 4 / 5; width: 200px; }
+.tagline { margin-top: var(--s7); font: 400 14px var(--mono); color: var(--ink-3); }
+.ctas { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s5); }
+.building { margin-top: var(--s7); padding: var(--s5) var(--s6); }
+.building h3 { margin-top: var(--s2); font-size: 22px; font-weight: 500; letter-spacing: -.02em; }
+.building p { margin: var(--s2) 0 var(--s4); max-width: 62ch; color: var(--ink-2); }
 
-/* About */
-.hero { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--s7) var(--s8); align-items: center; }
-.meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3) var(--s5); }
-.status, .based { display: inline-flex; align-items: center; gap: 10px; font: 500 13px/1 var(--mono); color: var(--ink-2); }
-.based svg { width: 15px; height: 15px; color: var(--accent); }
-.status i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: pulse 2.2s infinite; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(52,211,153,.6); } 70%, 100% { box-shadow: 0 0 0 9px rgba(52,211,153,0); } }
-h1 { margin-top: var(--s5); font-size: clamp(38px, 4.4vw, 60px); }
-.lede { margin-top: var(--s5); max-width: 54ch; font-size: clamp(17px, 1.35vw, 19px); color: var(--ink-2); }
-.seek { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s3); margin-top: var(--s5); }
-.ctas { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s6); }
-.portrait { --ar: 4 / 5; justify-self: end; width: min(100%, 340px); }
-.portrait .tag { position: absolute; left: var(--s3); bottom: var(--s3); z-index: 1; padding: 6px 10px; border-radius: 8px; background: rgba(6,4,11,.7); backdrop-filter: blur(8px); font: 500 12px var(--mono); color: var(--ink-2); }
-.stats { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
-.stat { padding: var(--s5) var(--s5) 0 0; }
-.stat + .stat { padding-left: var(--s5); border-left: 1px solid var(--line); }
-.stat b { display: block; font-size: clamp(30px, 3.4vw, 44px); font-weight: 600; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
-.stat span { display: block; margin-top: var(--s2); font-size: 14px; color: var(--ink-3); }
+/* About: words light up as you scroll */
+.about-text { max-width: 760px; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.55; letter-spacing: -.01em; }
+.about-text .w { opacity: .18; transition: opacity .4s; }
+.about-text .w.lit { opacity: 1; }
 
-/* Work: hover (or tap/focus) slides the summary over the screenshot */
-.work { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
-.proj { outline-offset: 8px; }
-.proj .media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r2); box-shadow: 0 30px 60px -30px rgba(0,0,0,.9); transition: transform .6s var(--ease); }
-.proj:hover .media, .proj:focus .media { transform: translateY(-4px); }
-.proj .media img { width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform .8s var(--ease); }
-.proj:hover .media img { transform: scale(1.04); }
-.peek { position: absolute; top: var(--s3); right: var(--s3); z-index: 2; padding: 4px 10px; border-radius: 999px; background: rgba(6,4,11,.7); backdrop-filter: blur(8px); font: 500 11px var(--mono); color: var(--ink-2); transition: opacity .2s; }
-.proj:hover .peek, .proj:focus .peek { opacity: 0; }
-.sum { position: absolute; inset: auto 0 0; z-index: 1; padding: var(--s5); background: rgba(8,5,14,.94); backdrop-filter: blur(10px); border-top: 2px solid transparent; border-image: var(--grad) 1; transform: translateY(101%); transition: transform .6s var(--ease); }
-.proj:hover .sum, .proj:focus .sum { transform: none; }
-.sum p { font-size: 15px; line-height: 1.55; }
-.facts { display: flex; gap: var(--s6); margin-top: var(--s4); }
-.facts b { display: block; font-size: 20px; font-weight: 600; letter-spacing: -.02em; }
-.facts span { font: 400 12px var(--mono); color: var(--ink-3); }
-.proj .body { padding-top: var(--s5); }
-.proj h3 { margin-top: var(--s3); font-size: 28px; }
-.proj .body > p { margin-top: var(--s2); color: var(--ink-2); }
-.proj .chips { margin-top: var(--s4); }
-.proj .chip { font: 500 12px var(--mono); color: var(--ink-3); }
-.note { margin-top: var(--s5); font-size: 15px; color: var(--ink-3); }
+/* What I do */
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
+.duo .box { padding: var(--s6); }
+.duo h3 { font: 500 14px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.duo p { margin: var(--s2) 0 var(--s5); color: var(--ink-2); }
 
-/* Experience */
-.xp { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s8); align-items: start; }
-.role h3 { margin-top: var(--s3); font-size: 26px; letter-spacing: -.02em; line-height: 1.15; }
-.role .where { margin-top: var(--s2); color: var(--ink-2); }
-.facts-list { margin-top: var(--s5); border-top: 1px solid var(--line); }
-.facts-list div { display: flex; justify-content: space-between; gap: var(--s4); padding: var(--s3) 0; border-bottom: 1px solid var(--line); }
-.facts-list dd { margin: 0; text-align: right; font-size: 15px; font-weight: 500; }
-.impact { counter-reset: n; }
-.impact li { counter-increment: n; display: grid; grid-template-columns: 36px 1fr; gap: var(--s3); padding: var(--s4) 0; border-bottom: 1px solid var(--line); color: var(--ink-2); }
-.impact li:first-child { padding-top: 0; }
-.impact li:last-child { border-bottom: 0; padding-bottom: 0; }
-.impact li::before { content: counter(n, decimal-leading-zero); font: 500 13px/1.9 var(--mono); color: var(--accent); }
-.impact b { color: var(--ink); font-weight: 600; }
-.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s5); margin-top: var(--s5); }
-.carry { margin-top: var(--s8); }
-.carry h3, .groups h3 { font-size: 22px; letter-spacing: -.02em; }
-.map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 var(--s6); margin-top: var(--s4); }
-.map li { padding: var(--s4) 0; border-top: 1px solid var(--line); }
-.map b { display: block; font-size: 15px; font-weight: 600; }
-.map span { display: block; margin-top: var(--s1); font-size: 14px; color: var(--ink-2); }
-.map span::before { content: "→ "; color: var(--accent); }
+/* Journey timeline */
+.timeline { position: relative; padding-left: var(--s6); }
+.timeline::before { content: ""; position: absolute; left: 4px; top: 8px; bottom: 8px; width: 1px; background: var(--line-2); }
+.timeline > li { position: relative; padding-bottom: var(--s7); }
+.timeline > li:last-child { padding-bottom: 0; }
+.timeline > li::before { content: ""; position: absolute; left: calc(-1 * var(--s6) + 1px); top: 7px; width: 7px; height: 7px; border-radius: 50%; background: var(--ink-3); }
+.timeline > li.live::before { background: var(--gold); box-shadow: 0 0 0 0 rgba(232,196,90,.5); animation: ping 2.4s infinite; }
+@keyframes ping { 70%, 100% { box-shadow: 0 0 0 8px rgba(232,196,90,0); } }
+.timeline h3 { margin-top: var(--s1); font-size: 19px; font-weight: 500; letter-spacing: -.01em; }
+.timeline .where { font-size: 14px; color: var(--ink-3); }
+.when { font: 400 12px var(--mono); letter-spacing: .06em; color: var(--ink-3); }
 
-/* Skills & education */
-.sk { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s8); align-items: start; }
-.edu .slot { --ar: 16 / 9; margin-bottom: var(--s5); }
-.edu h3 { margin-top: var(--s2); font-size: 26px; letter-spacing: -.02em; }
-.edu p { margin-top: var(--s1); color: var(--ink-2); }
-.edu .label + .chips { margin-top: var(--s3); }
-.edu .label.gap { display: block; margin-top: var(--s5); }
-.row { display: grid; grid-template-columns: 160px 1fr; gap: var(--s4); padding: var(--s4) 0; border-bottom: 1px solid var(--line); align-items: baseline; }
-.row:last-child { border-bottom: 0; padding-bottom: 0; }
-.groups h3 + .row { margin-top: var(--s3); }
+/* Expandable rows (Journey detail + Work) */
+details > summary { list-style: none; cursor: pointer; }
+details > summary::-webkit-details-marker { display: none; }
+.plus { position: absolute; top: var(--s5); right: var(--s5); width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line-2); font: 400 16px var(--mono); color: var(--ink-2); transition: transform .4s var(--ease), border-color .3s; }
+details[open] .plus { transform: rotate(45deg); }
+details:hover .plus { border-color: #4a4656; }
+.more { padding-top: var(--s5); animation: open .5s var(--ease); }
+@keyframes open { from { opacity: 0; translate: 0 -6px; } }
+.bullets li { position: relative; padding: var(--s2) 0 var(--s2) var(--s5); color: var(--ink-2); border-top: 1px solid var(--line); }
+.bullets li::before { content: "→"; position: absolute; left: 0; color: var(--violet); }
+.bullets b { color: var(--ink); font-weight: 500; }
+.navy-detail { position: relative; margin-top: var(--s3); padding: var(--s5); padding-right: 64px; }
+.navy-detail summary { font-size: 14px; color: var(--ink-2); }
+.facts { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s6); margin-bottom: var(--s4); }
+.facts span { font: 400 13px var(--mono); color: var(--ink-2); }
+.facts b { color: var(--gold); font-weight: 500; }
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); margin-top: var(--s5); }
+
+/* Work list */
+.work { display: grid; gap: var(--s4); }
+.proj { position: relative; padding: var(--s5) 72px var(--s5) var(--s6); transition: border-color .3s; }
+.proj:hover { border-color: var(--line-2); }
+.proj summary { display: grid; grid-template-columns: 40px 1fr; gap: 0 var(--s3); }
+.idx { font: 400 13px/2.2 var(--mono); color: var(--ink-3); grid-row: span 4; }
+.proj h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s2) var(--s3); font-size: 22px; font-weight: 500; letter-spacing: -.02em; }
+.proj h3 small { font: 400 12px var(--mono); color: var(--ink-3); letter-spacing: .04em; }
+.tag-live { padding: 1px 9px; border-radius: 999px; border: 1px solid rgba(232,196,90,.5); font: 400 11px/1.7 var(--mono); color: var(--gold); }
+.proj .when { margin-top: 2px; }
+.proj summary p { margin-top: var(--s2); max-width: 66ch; color: var(--ink-2); }
+.metrics { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); margin-top: var(--s3); font: 400 13px var(--mono); color: var(--ink-3); }
+.metrics b { color: var(--gold); font-weight: 500; margin-right: 4px; }
+.proj .more { margin-left: 52px; display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--s6); align-items: start; }
+.proj .shot { border-radius: 10px; border: 1px solid var(--line); aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; }
+
+/* Stack */
+.stack .row { display: grid; grid-template-columns: 180px 1fr; gap: var(--s4); padding: var(--s5) 0; border-top: 1px solid var(--line); }
+.stack .row:last-child { border-bottom: 1px solid var(--line); }
+
+/* Credentials */
+.creds { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
+.creds .box { padding: var(--s6); }
+.creds .item + .item { margin-top: var(--s5); padding-top: var(--s5); border-top: 1px solid var(--line); }
+.creds h3 { margin-top: var(--s3); font-size: 18px; font-weight: 500; }
+.creds .item p { font-size: 14px; color: var(--ink-2); }
+.creds .item .when { display: block; margin-top: 2px; }
+
+/* Hobbies */
+.hobbies { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s4); }
+.hobby .slot { --ar: 4 / 5; }
+.hobby h3 { margin-top: var(--s4); font-size: 17px; font-weight: 500; }
+.hobby p { margin-top: var(--s1); font-size: 14px; color: var(--ink-2); }
 
 /* Contact */
-#contact { align-items: center; text-align: center; }
-#contact h2 { margin-top: var(--s4); font-size: clamp(56px, 9vw, 120px); letter-spacing: -.045em; }
-#contact .lede { margin-inline: auto; }
-.email { display: inline-block; margin-top: var(--s6); font-size: clamp(20px, 2.4vw, 28px); font-weight: 500; text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .5s var(--ease); }
-.email:hover { background-size: 100% 1px; }
-#contact .ctas { justify-content: center; }
-.foot { width: 100%; display: flex; justify-content: space-between; margin-top: var(--s9); padding-top: var(--s5); border-top: 1px solid var(--line); }
+.contact { padding-bottom: var(--s8); }
+.contact .tagline { margin: 0 0 var(--s6); }
+.links { border-top: 1px solid var(--line); }
+.links li { display: grid; grid-template-columns: 140px 1fr auto; align-items: center; gap: var(--s4); padding: var(--s4) 0; border-bottom: 1px solid var(--line); }
+.links a { text-decoration: none; font-size: 17px; }
+.links a:hover { color: var(--violet); }
+.copy { font: 400 12px var(--mono); color: var(--ink-3); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line-2); transition: color .2s, border-color .2s; }
+.copy:hover { color: var(--ink); border-color: #4a4656; }
+.foot { display: flex; justify-content: space-between; margin-top: var(--s9); padding-top: var(--s5); border-top: 1px solid var(--line); }
 
-/* ---------- Motion: content rises in as it scrolls into view ---------- */
-.js .r { opacity: 0; translate: 0 24px; filter: blur(6px);
-  transition: opacity .9s var(--ease), translate .9s var(--ease), filter .9s var(--ease), transform .5s var(--ease), border-color .4s, box-shadow .5s var(--ease);
-  transition-delay: calc(var(--i, 0) * 80ms), calc(var(--i, 0) * 80ms), calc(var(--i, 0) * 80ms), 0s, 0s, 0s; }
-.js .r.in { opacity: 1; translate: 0 0; filter: none; }
+/* Scroll reveal */
+.js .r { opacity: 0; translate: 0 20px; transition: opacity .8s var(--ease), translate .8s var(--ease); transition-delay: calc(var(--i, 0) * 70ms); }
+.js .r.in { opacity: 1; translate: 0 0; }
 
-/* No hover on touch screens: always show summaries */
-@media (hover: none) {
-  .sum { position: static; transform: none; border-top: 0; background: rgba(8,5,14,.5); }
-  .peek { display: none; }
-}
-@media (max-width: 900px) {
-  html { scroll-snap-type: y proximity; }
-  .hero, .work, .xp, .sk { grid-template-columns: 1fr; }
-  .hero { gap: var(--s6); }
-  .portrait { justify-self: start; width: 200px; order: -1; }
-  .stats { grid-template-columns: 1fr 1fr; }
-  .stat:nth-child(3) { padding-left: 0; border-left: 0; }
-  .head { flex-direction: column; align-items: flex-start; gap: var(--s3); }
-  .gallery { grid-template-columns: 1fr 1fr; }
-  .gallery .slot:first-child { grid-column: 1 / -1; }
-  .map { grid-template-columns: 1fr 1fr; }
-  .tabs { gap: var(--s5); }
-}
-@media (max-width: 560px) {
-  body { font-size: 16px; }
-  html { scroll-padding-top: 96px; }
-  .top .wrap { height: auto; flex-wrap: wrap; gap: var(--s1) var(--s4); padding: var(--s3) var(--s4) var(--s1); }
-  .tabs { width: 100%; justify-content: space-between; }
-  .top .btn { display: none; }
-  .tabs { gap: var(--s3); }
-  .tabs a { font-size: 13px; }
-  section { padding: var(--s8) var(--s4); }
-  #about { padding-top: 120px; }
-  .map { grid-template-columns: 1fr; }
-  .row { grid-template-columns: 1fr; gap: var(--s2); }
-  .stat { padding-right: var(--s3); }
-  .stat + .stat { padding-left: var(--s3); }
-  .stat:nth-child(3) { padding-left: 0; }
-  .foot { flex-direction: column; gap: var(--s2); }
-}
-/* Hobbies */
-.hobbies { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s5); }
-.hobby .slot { --ar: 4 / 5; transition: transform .6s var(--ease); }
-.hobby:hover .slot { transform: translateY(-4px); }
-.hobby .body { padding-top: var(--s4); }
-.hobby h3 { margin-top: var(--s2); font-size: 22px; letter-spacing: -.02em; }
-.hobby p { margin-top: var(--s2); font-size: 15px; color: var(--ink-2); }
-@media (max-width: 900px) { .hobbies { grid-template-columns: 1fr 1fr; } .hobby .slot { --ar: 1 / 1; } }
-
-/* ---------- Intro: ride in on a motorcycle (once per visit) ---------- */
+/* Intro: ride in on a motorcycle (once per visit) */
 .intro { display: none; position: fixed; inset: 0; z-index: 100; overflow: hidden; background: #06040b; cursor: pointer; transition: opacity .8s var(--ease), transform .9s cubic-bezier(.7, 0, .84, 0), filter .8s; }
 .riding .intro, .intro.out { display: block; }
 .intro.out { opacity: 0; transform: scale(1.7); filter: blur(10px); pointer-events: none; }
 html.riding { overflow: hidden; }
-.riding main, .riding .top { opacity: 0; transform: scale(1.06); }
+.riding main, .riding .top { opacity: 0; transform: scale(1.04); }
+main, .top { transition: opacity 1s var(--ease) .2s, transform 1.2s var(--ease) .2s; }
 .ride { position: absolute; inset: -4%; animation: lean 2.6s ease-in-out both; }
 .ride::after { content: ""; position: absolute; inset: 0; background: radial-gradient(90% 80% at 50% 55%, transparent 40%, rgba(6,4,11,.85)); pointer-events: none; }
 .ride canvas { width: 100%; height: 100%; display: block; animation: rumble .08s linear infinite; }
 @keyframes lean { 30% { rotate: -1.6deg; } 70% { rotate: 1.2deg; } 100% { rotate: 0deg; } }
 @keyframes rumble { 50% { translate: 0 1.5px; } }
 .sign { position: absolute; left: 50%; top: 42%; z-index: 1; text-align: center; white-space: nowrap; opacity: 0; transform: translate(-50%, -50%) scale(.12); will-change: transform; }
-.sign span { display: block; font: 600 clamp(40px, 7vw, 96px)/1 var(--sans); letter-spacing: -.04em; text-shadow: 0 0 40px rgba(255,77,148,.55); }
+.sign span { display: block; font: 300 clamp(40px, 7vw, 96px)/1 var(--sans); letter-spacing: -.04em; text-transform: uppercase; text-shadow: 0 0 40px rgba(181,168,247,.5); }
 .sign small { display: block; margin-top: var(--s3); font: 500 13px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
 .bars { position: absolute; left: 50%; bottom: -2px; width: max(760px, min(1200px, 100vw)); transform: translateX(-50%); animation: rumble .08s linear infinite; }
 .skip { position: absolute; top: var(--s5); right: var(--s5); z-index: 2; }
 
+@media (max-width: 860px) {
+  .hero-grid, .duo, .creds { grid-template-columns: 1fr; }
+  .portrait { order: -1; width: 150px; }
+  .proj .more { margin-left: 0; grid-template-columns: 1fr; }
+  .hobbies { grid-template-columns: 1fr 1fr; }
+  .hobby .slot { --ar: 1 / 1; }
+  .gallery { grid-template-columns: 1fr 1fr; }
+  .gallery .slot:first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 0 var(--s4); }
+  .top .wrap { height: auto; flex-wrap: wrap; gap: var(--s1) var(--s4); padding-top: var(--s3); padding-bottom: var(--s3); }
+  .nav { width: 100%; justify-content: space-between; gap: var(--s3); }
+  .nav a { font-size: 11px; letter-spacing: .08em; }
+  html { scroll-padding-top: 96px; }
+  section.wrap.hero { padding-top: 132px; }
+  section.wrap { padding-top: var(--s8); }
+  .proj { padding: var(--s5) 56px var(--s5) var(--s5); }
+  .proj summary { grid-template-columns: 1fr; }
+  .idx { grid-row: auto; line-height: 1.6; }
+  .plus { top: var(--s4); right: var(--s4); }
+  .stack .row { grid-template-columns: 1fr; gap: var(--s3); }
+  .links li { grid-template-columns: 1fr auto; }
+  .links li .label { grid-column: 1 / -1; }
+  .duo .box, .creds .box { padding: var(--s5); }
+  .foot { flex-direction: column; gap: var(--s2); }
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
-  .js .r { opacity: 1; translate: none; filter: none; }
+  .js .r { opacity: 1; translate: none; }
+  .about-text .w { opacity: 1; }
 }
 </style>
 </head>
@@ -298,226 +261,255 @@ try { if (!sessionStorage.rode && !matchMedia("(prefers-reduced-motion: reduce)"
   </svg>
   <button class="btn sm skip" id="skip">Skip intro</button>
 </div>
-<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
 
 <header class="top" id="top">
   <div class="wrap">
-    <a class="mark" href="#about">Juan Cabrera</a>
-    <nav class="tabs" aria-label="Sections">
-      <a href="#about" aria-current="true">About</a>
-      <a href="#work">Work</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
+    <a class="name" href="#home">Juan Cabrera</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#journey">Experience</a>
+      <a href="#work">Projects</a>
       <a href="#hobbies">Hobbies</a>
       <a href="#contact">Contact</a>
-      <span class="ink" aria-hidden="true"></span>
     </nav>
-    <a class="btn sm" href="resume.pdf" download data-resume>Résumé</a>
   </div>
 </header>
 
 <main>
-  <!-- 01 About -->
-  <section id="about">
-    <div class="hero">
+  <!-- Hero -->
+  <section class="hero wrap" id="home">
+    <div class="hero-grid">
       <div>
-        <div class="meta r">
-          <span class="based"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>Based in Queens, New York</span>
-          <span class="status"><i></i>Open to SWE &amp; data internships</span>
-        </div>
-        <h1 class="r">Navy veteran turned CS student, building <em>software</em> and making sense of <em>data.</em></h1>
-        <p class="lede r">For five years I kept real-time data networks running for a U.S. Navy carrier strike group. Now I study computer science at <a href="https://www.stjohns.edu" target="_blank" rel="noopener">St. John's University</a> and I'm looking for software engineering and data internships.</p>
-        <div class="seek r">
-          <span class="label">Seeking</span>
-          <span class="chip">Software engineering</span>
-          <span class="chip">Data engineering</span>
-          <span class="chip">Data analytics</span>
-        </div>
-        <div class="ctas r">
-          <a class="btn primary" href="#work">See my work <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="btn" href="resume.pdf" download data-resume>Download résumé</a>
-          <a class="btn" href="https://github.com/jdmillan" target="_blank" rel="noopener">GitHub</a>
-        </div>
+        <p class="prompt" aria-label="java Portfolio.java"><span id="typed"></span><span class="caret" aria-hidden="true"></span></p>
+        <h1 class="r"><span>Juan</span><span>Cabrera</span></h1>
+        <p class="role r">CS student · U.S. Navy veteran</p>
       </div>
       <figure class="slot portrait r" data-label="Your portrait" data-file="img/me.jpg">
         <img src="img/me.jpg" alt="Portrait of Juan Cabrera" onerror="this.remove()">
-        <figcaption class="tag">Queens, NY</figcaption>
       </figure>
-      <div class="stats r">
-        <div class="stat"><b data-to="5">5</b><span>Years in the Navy</span></div>
-        <div class="stat"><b data-to="10">10</b><span>Person team led</span></div>
-        <div class="stat"><b data-to="5000" data-suf="+">5,000+</b><span>People supported</span></div>
-        <div class="stat"><b data-to="3">3</b><span>Strike groups networked</span></div>
-      </div>
     </div>
-  </section>
-
-  <!-- 02 Work -->
-  <section id="work">
-    <div class="head r">
-      <div><span class="label">02 — Work</span><h2>Selected projects</h2></div>
-      <p>Two things I'm building on my own time. Hover a card for the details.</p>
-    </div>
-    <div class="work">
-      <article class="card proj r" tabindex="0" aria-describedby="sum-craver">
-        <div class="media">
-          <span class="peek">Hover for summary</span>
-          <img src="img/craver.jpg" width="1280" height="800" alt="Craver landing screen asking 'What are you actually hungry for?'" loading="lazy">
-          <div class="sum" id="sum-craver">
-            <p>Six this-or-that rounds turn your craving into a 10-dimension flavor vector. Cosine similarity ranks real restaurants, sorted by distance using geolocation and the haversine formula.</p>
-            <div class="facts">
-              <div><b>149</b><span>restaurants</span></div>
-              <div><b>10-D</b><span>flavor vectors</span></div>
-              <div><b>6</b><span>rounds</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="body">
-          <span class="label">Sep 2026 – present · Web app</span>
-          <h3>Craver</h3>
-          <p>A food picker that matches your craving to restaurants in Queens and Brooklyn.</p>
-          <ul class="chips"><li class="chip">JavaScript</li><li class="chip">HTML/CSS</li><li class="chip">Geolocation</li><li class="chip">Cosine similarity</li></ul>
-        </div>
-      </article>
-      <article class="card proj r" tabindex="0" aria-describedby="sum-aim">
-        <div class="media">
-          <span class="peek">Hover for summary</span>
-          <img src="img/aim.jpg" width="1280" height="800" alt="Aim Trainer start menu over a 3D range with red targets" loading="lazy">
-          <div class="sum" id="sum-aim">
-            <p>A first-person 3D aim trainer that runs in the browser. WASD movement, pointer-lock aim, raycast hit detection and a multi-target mode whose spawns scale to your field of view.</p>
-            <div class="facts">
-              <div><b>3D</b><span>WebGL</span></div>
-              <div><b>Live</b><span>HUD &amp; stats</span></div>
-              <div><b>FOV</b><span>scaled spawns</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="body">
-          <span class="label">Sep 2026 · Browser game</span>
-          <h3>Aim Trainer</h3>
-          <p>Aim practice in any browser, with adjustable sensitivity and session stats.</p>
-          <ul class="chips"><li class="chip">TypeScript</li><li class="chip">Three.js</li><li class="chip">WebGL</li><li class="chip">Vite</li></ul>
-        </div>
-      </article>
-    </div>
-    <p class="note r">Both projects are on <a href="https://github.com/jdmillan" target="_blank" rel="noopener">GitHub</a>. Email me for a live demo.</p>
-  </section>
-
-  <!-- 03 Experience -->
-  <section id="experience">
-    <div class="head r">
-      <div><span class="label">03 — Experience</span><h2>Operations Specialist</h2></div>
-      <p>U.S. Navy, 2019 – 2024. Real-time data, secure networks and a team to lead.</p>
-    </div>
-    <div class="xp">
-      <div class="card role r">
-        <span class="label">Sep 2019 – Dec 2024 · San Diego, CA</span>
-        <h3>Network Operations &amp; Data Systems Specialist</h3>
-        <p class="where">U.S. Navy · Aircraft Carrier Strike Group</p>
-        <dl class="facts-list">
-          <div><dt class="label">Rating</dt><dd>Operations Specialist, OS2 (E-5)</dd></div>
-          <div><dt class="label">Clearance</dt><dd>Secret, 2019 – 2024</dd></div>
-          <div><dt class="label">Deployments</dt><dd>2</dd></div>
-          <div><dt class="label">Award</dt><dd>Navy &amp; Marine Corps Achievement Medal</dd></div>
-        </dl>
-      </div>
-      <div class="card r">
-        <ol class="impact">
-          <li><span><b>Led a 10-person network operations team</b> across two deployments, keeping secure data and communications running for 5,000+ people.</span></li>
-          <li><span><b>Ran real-time command and control software</b> and data-sharing networks linking ships, aircraft and allied partners across 3 strike groups.</span></li>
-          <li><span><b>Protected classified networks</b> by monitoring traffic, validating messages and checking encryption.</span></li>
-          <li><span><b>Briefed the admiral and senior staff daily</b> with data briefings and incident reports for time-critical decisions.</span></li>
-          <li><span><b>Kept data accurate</b> with intelligence and operations teams for threat tracking and planning.</span></li>
-          <li><span><b>Trained junior team members</b> on network security, encryption and handling sensitive information.</span></li>
-        </ol>
-      </div>
-    </div>
-    <!-- Context photos. Use only photos cleared for public release: no screens, classified spaces or ship locations. -->
-    <div class="gallery">
-      <figure class="slot r" data-label="On deployment" data-file="img/navy-1.jpg"><img src="img/navy-1.jpg" alt="On deployment with the strike group" onerror="this.remove()"></figure>
-      <figure class="slot r" data-label="My team" data-file="img/navy-2.jpg"><img src="img/navy-2.jpg" alt="Network operations team" onerror="this.remove()"></figure>
-      <figure class="slot r" data-label="Achievement Medal" data-file="img/navy-3.jpg"><img src="img/navy-3.jpg" alt="Navy and Marine Corps Achievement Medal ceremony" onerror="this.remove()"></figure>
-    </div>
-    <div class="card carry r">
-      <h3>How it carries over to software and data</h3>
-      <ul class="map">
-        <li><b>Real-time C2 data</b><span>Streaming data and real-time systems</span></li>
-        <li><b>Network monitoring</b><span>Observability, logging and alerts</span></li>
-        <li><b>Message validation</b><span>Data quality and integrity checks</span></li>
-        <li><b>Encryption checks</b><span>Security-minded engineering</span></li>
-        <li><b>Admiral briefings</b><span>Turning data into decisions</span></li>
-        <li><b>Incident reports</b><span>Incident response and postmortems</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 04 Skills & education -->
-  <section id="skills">
-    <div class="head r">
-      <div><span class="label">04 — Skills &amp; education</span><h2>Toolkit</h2></div>
-      <p>What I build with, and what I learned leading a team.</p>
-    </div>
-    <div class="sk">
-      <div class="card edu r">
-        <figure class="slot" data-label="Campus photo" data-file="img/school.jpg"><img src="img/school.jpg" alt="St. John's University campus" onerror="this.remove()"></figure>
-        <span class="label">B.S. Computer Science · Expected 2028</span>
-        <h3>St. John's University</h3>
-        <p>Queens, New York</p>
-        <span class="label gap">Coursework</span>
-        <div class="chips">
-          <span class="chip">Data Structures &amp; Algorithms</span>
-          <span class="chip">Computer Architecture &amp; Digital Logic</span>
-          <span class="chip">Programming I &amp; II</span>
-        </div>
-      </div>
-      <div class="card groups r">
-        <h3>Skills</h3>
-        <div class="row"><span class="label">Languages</span><div class="chips"><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/java/java-plain.svg" alt="" width="16" height="16">Java</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/typescript/typescript-plain.svg" alt="" width="16" height="16">TypeScript</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-plain.svg" alt="" width="16" height="16">JavaScript</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-plain.svg" alt="" width="16" height="16"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/css3/css3-plain.svg" alt="" width="16" height="16">HTML/CSS</span></div></div>
-        <div class="row"><span class="label">Tools</span><div class="chips"><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/threejs/threejs-original.svg" alt="" width="16" height="16">Three.js / WebGL</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vitejs/vitejs-plain.svg" alt="" width="16" height="16">Vite</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/git/git-plain.svg" alt="" width="16" height="16"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/github/github-original.svg" alt="" width="16" height="16">Git / GitHub</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/eclipse/eclipse-plain.svg" alt="" width="16" height="16">Eclipse</span></div></div>
-        <div class="row"><span class="label">Data &amp; systems</span><div class="chips"><span class="chip">Real-time data systems</span><span class="chip">Network monitoring</span><span class="chip">Cybersecurity monitoring</span><span class="chip">Encrypted networks</span><span class="chip">Secure comms</span></div></div>
-        <div class="row"><span class="label">Leadership</span><div class="chips"><span class="chip">Team supervision</span><span class="chip">Training &amp; mentorship</span><span class="chip">Cross-team coordination</span><span class="chip">Incident reporting</span></div></div>
-        <div class="row"><span class="label">Soft skills</span><div class="chips"><span class="chip">Clear communication</span><span class="chip">Calm under pressure</span><span class="chip">Attention to detail</span><span class="chip">Adaptability</span><span class="chip">Problem solving</span></div></div>
-        <div class="row"><span class="label">Spoken</span><div class="chips"><span class="chip">English</span><span class="chip">Spanish</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05 Hobbies -->
-  <section id="hobbies">
-    <div class="head r">
-      <div><span class="label">05 — Off the clock</span><h2>Outside of work</h2></div>
-      <p>What I'm into when I'm not coding or studying.</p>
-    </div>
-    <div class="hobbies">
-      <article class="card hobby r">
-        <figure class="slot" data-label="Riding photo" data-file="img/hobby-moto.jpg"><img src="img/hobby-moto.jpg" alt="Juan's motorcycle" onerror="this.remove()"></figure>
-        <div class="body"><span class="label">01</span><h3>Motorcycles</h3><p>Riding is how I reset. Open road, no notifications.</p></div>
-      </article>
-      <article class="card hobby r">
-        <figure class="slot" data-label="Soccer photo" data-file="img/hobby-soccer.jpg"><img src="img/hobby-soccer.jpg" alt="Playing soccer" onerror="this.remove()"></figure>
-        <div class="body"><span class="label">02</span><h3>Soccer</h3><p>Playing or watching, it's my favorite team sport.</p></div>
-      </article>
-      <article class="card hobby r">
-        <figure class="slot" data-label="Gaming photo" data-file="img/hobby-games.jpg"><img src="img/hobby-games.jpg" alt="Gaming setup" onerror="this.remove()"></figure>
-        <div class="body"><span class="label">03</span><h3>Video games</h3><p>Where the Aim Trainer came from. I like knowing how games are built, not just playing them.</p></div>
-      </article>
-      <article class="card hobby r">
-        <figure class="slot" data-label="Gym photo" data-file="img/hobby-gym.jpg"><img src="img/hobby-gym.jpg" alt="At the gym" onerror="this.remove()"></figure>
-        <div class="body"><span class="label">04</span><h3>Gym</h3><p>A habit the Navy built that stuck. Consistent training, every week.</p></div>
-      </article>
-    </div>
-  </section>
-
-  <!-- 06 Contact -->
-  <section id="contact">
-    <span class="label r">06 — Contact</span>
-    <h2 class="r">Let's <em>talk.</em></h2>
-    <p class="lede r">Based in Queens, New York. Hiring software engineering or data interns? I'd love to hear about the role.</p>
-    <a class="email r" href="mailto:jdcm0212@gmail.com">jdcm0212@gmail.com</a>
+    <p class="tagline r">Open to software engineering &amp; data internships · Queens, NY</p>
     <div class="ctas r">
-      <a class="btn" href="https://github.com/jdmillan" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>GitHub</a>
-      <a class="btn" href="https://www.linkedin.com/in/juan-cabrera-b85b81369" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>LinkedIn</a>
-      <a class="btn" href="resume.pdf" download data-resume>Résumé</a>
+      <a class="btn solid" href="resume.pdf" target="_blank" rel="noopener" data-resume>View Résumé →</a>
+      <a class="btn" href="#contact">Get in Touch →</a>
+      <a class="btn" href="https://github.com/jdmillan" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+    <a class="box building r" href="#work" style="display:block;text-decoration:none">
+      <span class="label">Personal project · <span class="now">in progress</span></span>
+      <h3>Craver</h3>
+      <p>A this-or-that food picker that learns your craving as a flavor vector and ranks real restaurants in Queens and Brooklyn by match and distance.</p>
+      <span class="pills"><span class="pill">JavaScript</span><span class="pill">HTML/CSS</span><span class="pill">Cosine similarity</span><span class="pill">Geolocation</span></span>
+    </a>
+  </section>
+
+  <!-- 01 About -->
+  <section class="wrap" id="about">
+    <span class="label sec-label r">01 — About</span>
+    <h2 class="r">About Me</h2>
+    <p class="about-text" id="about-text">I spent five years in the U.S. Navy keeping real-time data networks running for an aircraft carrier strike group: leading a 10-person team, protecting classified networks and briefing an admiral on the data behind time-critical decisions. Now I study computer science at St. John's University in Queens and build software on my own time, from a restaurant matcher powered by cosine similarity to a 3D aim trainer in Three.js. I care about systems that stay accurate under pressure, and about the people who rely on them.</p>
+  </section>
+
+  <!-- 02 What I do -->
+  <section class="wrap" id="do">
+    <span class="label sec-label r">02 — What I do</span>
+    <div class="duo">
+      <div class="box r">
+        <h3>Software engineering</h3>
+        <p>Web apps and games people actually use</p>
+        <div class="pills"><span class="pill">Java</span><span class="pill">TypeScript</span><span class="pill">JavaScript</span><span class="pill">Three.js</span><span class="pill">Vite</span><span class="pill">Git</span></div>
+      </div>
+      <div class="box r">
+        <h3>Data &amp; systems</h3>
+        <p>Real-time data, kept accurate and secure</p>
+        <div class="pills"><span class="pill">Cosine similarity</span><span class="pill">Geolocation</span><span class="pill">Real-time data</span><span class="pill">Network monitoring</span><span class="pill">Encryption</span><span class="pill">Incident reports</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 Journey -->
+  <section class="wrap" id="journey">
+    <span class="label sec-label r">03 — Experience</span>
+    <h2 class="r">Where I've worked</h2>
+    <ol class="timeline">
+      <li class="r">
+        <span class="when">Sep 2019 – Dec 2024</span>
+        <h3>Network Operations &amp; Data Systems Specialist</h3>
+        <p class="where">U.S. Navy · Aircraft Carrier Strike Group · San Diego, CA</p>
+        <details class="box navy-detail" open>
+          <summary>Operations Specialist, OS2 (E-5) · what I did<span class="plus" aria-hidden="true">+</span></summary>
+          <div class="more">
+            <div class="facts">
+              <span><b>10</b> person team led</span>
+              <span><b>5,000+</b> people supported</span>
+              <span><b>3</b> strike groups networked</span>
+              <span><b>2</b> deployments</span>
+            </div>
+            <ul class="bullets">
+              <li><b>Led a 10-person network operations team</b> across two deployments, keeping secure data and communications running for 5,000+ people.</li>
+              <li><b>Ran real-time command and control software</b> and data-sharing networks linking ships, aircraft and allied partners across 3 strike groups.</li>
+              <li><b>Protected classified networks</b> by monitoring traffic, validating messages and checking encryption.</li>
+              <li><b>Briefed the admiral and senior staff daily</b> with data briefings and incident reports for time-critical decisions.</li>
+              <li><b>Kept data accurate</b> with intelligence and operations teams for threat tracking and planning.</li>
+              <li><b>Trained junior team members</b> on network security, encryption and handling sensitive information.</li>
+            </ul>
+            <!-- Use only photos cleared for public release: no screens, classified spaces or ship locations. -->
+            <div class="gallery">
+              <figure class="slot" data-label="On deployment" data-file="img/navy-1.jpg"><img src="img/navy-1.jpg" alt="On deployment with the strike group" onerror="this.remove()"></figure>
+              <figure class="slot" data-label="My team" data-file="img/navy-2.jpg"><img src="img/navy-2.jpg" alt="Network operations team" onerror="this.remove()"></figure>
+              <figure class="slot" data-label="Achievement Medal" data-file="img/navy-3.jpg"><img src="img/navy-3.jpg" alt="Navy and Marine Corps Achievement Medal ceremony" onerror="this.remove()"></figure>
+            </div>
+          </div>
+        </details>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 04 Work -->
+  <section class="wrap" id="work">
+    <span class="label sec-label r">04 — Projects</span>
+    <h2 class="r">Personal projects</h2>
+    <div class="work">
+      <details class="box proj r">
+        <summary>
+          <span class="idx">01</span>
+          <h3>Craver <small>Personal project · Web app</small> <span class="tag-live">in progress</span></h3>
+          <span class="when">Sep 2026 – Present</span>
+          <p>A this-or-that food picker that matches your craving to real restaurants across Queens and Brooklyn.</p>
+          <div class="metrics"><span><b>149</b>restaurants</span><span><b>10-D</b>flavor vectors</span><span><b>6</b>rounds of picks</span></div>
+          <span class="plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="more">
+          <img class="shot" src="img/craver.jpg" width="1280" height="800" alt="Craver landing screen asking 'What are you actually hungry for?'" loading="lazy">
+          <ul class="bullets">
+            <li>Every dish and restaurant is a 10-dimension flavor vector, ranked with cosine similarity after six rounds of picks.</li>
+            <li>Results sorted by distance using browser geolocation and the haversine formula.</li>
+            <li>Photo galleries, Google ratings and a "why it matched" breakdown.</li>
+          </ul>
+        </div>
+      </details>
+      <details class="box proj r">
+        <summary>
+          <span class="idx">02</span>
+          <h3>Aim Trainer <small>Personal project · 3D game</small></h3>
+          <span class="when">Sep 2026</span>
+          <p>A first-person 3D aim trainer that runs in the browser.</p>
+          <div class="metrics"><span><b>3D</b>WebGL range</span><span><b>FOV</b>scaled spawns</span><span><b>Live</b>HUD &amp; stats</span></div>
+          <span class="plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="more">
+          <img class="shot" src="img/aim.jpg" width="1280" height="800" alt="Aim Trainer start menu over a 3D range with red targets" loading="lazy">
+          <ul class="bullets">
+            <li>Three.js and WebGL with WASD movement, pointer-lock mouse aim and raycast hit detection.</li>
+            <li>Multi-target mode with non-overlapping spawns that scale to the player's field of view and aspect ratio.</li>
+            <li>Adjustable sensitivity and session length, a live HUD and an end-of-session stats screen.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 05 Stack -->
+  <section class="wrap stack" id="stack">
+    <span class="label sec-label r">05 — Stack</span>
+    <h2 class="r">What I work with</h2>
+    <div class="row r"><span class="label">Languages</span><div class="pills">
+      <span class="pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/java/java-plain.svg" alt="">Java</span>
+      <span class="pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/typescript/typescript-plain.svg" alt="">TypeScript</span>
+      <span class="pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-plain.svg" alt="">JavaScript</span>
+      <span class="pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-plain.svg" alt="">HTML</span>
+      <span class="pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/css3/css3-plain.svg" alt="">CSS</span>
+    </div></div>
+    <div class="row r"><span class="label">Web &amp; 3D</span><div class="pills">
+      <span class="pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/threejs/threejs-original.svg" alt="">Three.js</span>
+      <span class="pill">WebGL</span>
+      <span class="pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vitejs/vitejs-plain.svg" alt="">Vite</span>
+      <span class="pill">Geolocation API</span>
+      <span class="pill">Pointer Lock API</span>
+    </div></div>
+    <div class="row r"><span class="label">Tools</span><div class="pills">
+      <span class="pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/git/git-plain.svg" alt="">Git</span>
+      <span class="pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/github/github-original.svg" alt="">GitHub</span>
+      <span class="pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/eclipse/eclipse-plain.svg" alt="">Eclipse</span>
+    </div></div>
+    <div class="row r"><span class="label">Systems</span><div class="pills"><span class="pill">Real-time data systems</span><span class="pill">Network monitoring</span><span class="pill">Cybersecurity monitoring</span><span class="pill">Encrypted networks</span><span class="pill">Secure comms</span></div></div>
+    <div class="row r"><span class="label">Leadership</span><div class="pills"><span class="pill">Team supervision</span><span class="pill">Training &amp; mentorship</span><span class="pill">Cross-team coordination</span><span class="pill">Incident reporting</span></div></div>
+    <div class="row r"><span class="label">Soft skills</span><div class="pills"><span class="pill">Clear communication</span><span class="pill">Calm under pressure</span><span class="pill">Attention to detail</span><span class="pill">Adaptability</span><span class="pill">Problem solving</span></div></div>
+  </section>
+
+  <!-- 06 Credentials -->
+  <section class="wrap" id="credentials">
+    <span class="label sec-label r">06 — Credentials</span>
+    <h2 class="r">Education &amp; honors</h2>
+    <div class="creds">
+      <div class="box r">
+        <span class="label">Education</span>
+        <div class="item">
+          <h3>B.S., Computer Science</h3>
+          <p>St. John's University</p>
+          <span class="when">Expected 2028 · Queens, NY</span>
+        </div>
+        <div class="item">
+          <span class="label">Coursework</span>
+          <p style="margin-top:var(--s2)">Data Structures &amp; Algorithms · Computer Architecture &amp; Digital Logic · Computer Programming I &amp; II</p>
+        </div>
+      </div>
+      <div class="box r">
+        <span class="label">Honors &amp; clearance</span>
+        <div class="item">
+          <h3>Navy and Marine Corps Achievement Medal</h3>
+          <p>U.S. Navy · for leadership, technical skill and cybersecurity performance</p>
+        </div>
+        <div class="item">
+          <h3>Secret security clearance</h3>
+          <p>U.S. Navy</p>
+          <span class="when">Held 2019 – 2024</span>
+        </div>
+        <div class="item">
+          <h3>Languages</h3>
+          <p>English · Spanish</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 Hobbies -->
+  <section class="wrap" id="hobbies">
+    <span class="label sec-label r">07 — Off the clock</span>
+    <h2 class="r">Outside of work</h2>
+    <div class="hobbies">
+      <article class="hobby r">
+        <figure class="slot" data-label="Riding photo" data-file="img/hobby-moto.jpg"><img src="img/hobby-moto.jpg" alt="Juan's motorcycle" onerror="this.remove()"></figure>
+        <h3>Motorcycles</h3><p>Riding is how I reset. Open road, no notifications.</p>
+      </article>
+      <article class="hobby r">
+        <figure class="slot" data-label="Soccer photo" data-file="img/hobby-soccer.jpg"><img src="img/hobby-soccer.jpg" alt="Playing soccer" onerror="this.remove()"></figure>
+        <h3>Soccer</h3><p>Playing or watching, it's my favorite team sport.</p>
+      </article>
+      <article class="hobby r">
+        <figure class="slot" data-label="Gaming photo" data-file="img/hobby-games.jpg"><img src="img/hobby-games.jpg" alt="Gaming setup" onerror="this.remove()"></figure>
+        <h3>Video games</h3><p>Where the Aim Trainer came from. I like knowing how games are built.</p>
+      </article>
+      <article class="hobby r">
+        <figure class="slot" data-label="Gym photo" data-file="img/hobby-gym.jpg"><img src="img/hobby-gym.jpg" alt="At the gym" onerror="this.remove()"></figure>
+        <h3>Gym</h3><p>A habit the Navy built that stuck. Consistent training, every week.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 08 Contact -->
+  <section class="wrap contact" id="contact">
+    <span class="label sec-label r">08 — Contact</span>
+    <h2 class="r">Get in touch</h2>
+    <p class="tagline r">Open to software engineering &amp; data internships · Queens, NY</p>
+    <ul class="links r">
+      <li><span class="label">Email</span><a href="mailto:jdcm0212@gmail.com">jdcm0212@gmail.com</a><button class="copy" data-copy="jdcm0212@gmail.com">copy</button></li>
+      <li><span class="label">GitHub</span><a href="https://github.com/jdmillan" target="_blank" rel="noopener">github.com/jdmillan</a><button class="copy" data-copy="https://github.com/jdmillan">copy</button></li>
+      <li><span class="label">LinkedIn</span><a href="https://www.linkedin.com/in/juan-cabrera-b85b81369" target="_blank" rel="noopener">linkedin.com/in/juan-cabrera-b85b81369</a><button class="copy" data-copy="https://www.linkedin.com/in/juan-cabrera-b85b81369">copy</button></li>
+      <li><span class="label">Location</span><span style="font-size:17px">Queens, New York</span><span></span></li>
+    </ul>
+    <div class="ctas r">
+      <a class="btn solid" href="resume.pdf" target="_blank" rel="noopener" data-resume>View Résumé →</a>
+      <a class="btn" href="resume.pdf" download data-resume>Download PDF ↓</a>
     </div>
     <footer class="foot label">
       <span>© 2026 Juan Cabrera</span>
@@ -531,53 +523,58 @@ const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Highlight the tab for the section in the middle of the screen,
-// slide the underline and shift the background colors.
-const tabs = $$(".tabs a");
-const ink = $(".ink");
-const moveInk = () => {
-  const a = $('.tabs a[aria-current="true"]');
-  ink.style.left = a.offsetLeft + "px";
-  ink.style.width = a.offsetWidth + "px";
-};
+// Nav: highlight the link for the section in the middle of the screen.
+const links = $$(".nav a");
 const io = new IntersectionObserver(entries => {
-  for (const e of entries) {
-    if (!e.isIntersecting) continue;
-    tabs.forEach(a => a.setAttribute("aria-current", a.hash === "#" + e.target.id));
-    document.body.dataset.section = e.target.id;
-    moveInk();
-  }
+  for (const e of entries) if (e.isIntersecting) links.forEach(a => a.setAttribute("aria-current", a.hash === "#" + e.target.id));
 }, { rootMargin: "-45% 0px -45% 0px" });
-$$("section").forEach(s => io.observe(s));
-addEventListener("resize", moveInk);
-document.fonts.ready.then(moveInk);
-addEventListener("scroll", () => $("#top").classList.toggle("scrolled", scrollY > 10), { passive: true });
+$$("main section").forEach(s => io.observe(s));
 
-// Stats count up the first time they appear.
-const fmt = new Intl.NumberFormat("en-US");
-const countUp = el => {
-  const to = +el.dataset.to, suf = el.dataset.suf || "", t0 = performance.now();
-  const step = t => {
-    const p = Math.min((t - t0) / 1400, 1);
-    el.textContent = fmt.format(Math.round(to * (1 - (1 - p) ** 3))) + suf;
-    if (p < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
+// About: split into words; words light up as the paragraph scrolls through.
+const about = $("#about-text");
+about.innerHTML = about.textContent.trim().split(/\s+/).map(w => `<span class="w">${w}</span> `).join("");
+const words = $$("#about-text .w");
+const light = () => {
+  const r = about.getBoundingClientRect();
+  const p = Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (r.height + innerHeight * .35)));
+  const n = Math.round(p * words.length);
+  words.forEach((w, i) => w.classList.toggle("lit", i < n));
+};
+if (calm) words.forEach(w => w.classList.add("lit"));
+else { addEventListener("scroll", () => requestAnimationFrame(light), { passive: true }); light(); }
+
+// Hero prompt types itself.
+const typeIn = () => {
+  const text = "> java Portfolio.java", el = $("#typed");
+  if (calm) { el.textContent = text; return; }
+  let i = 0;
+  const tick = () => { el.textContent = text.slice(0, ++i); if (i < text.length) setTimeout(tick, 45 + Math.random() * 40); };
+  setTimeout(tick, 300);
 };
 
-// Each piece rises in once, staggered with its siblings.
+// Each piece fades up once, staggered with its siblings.
 const rv = new IntersectionObserver(entries => {
-  for (const e of entries) {
-    if (!e.isIntersecting) continue;
-    e.target.classList.add("in");
-    if (e.target.matches(".stats") && !calm) e.target.querySelectorAll("[data-to]").forEach(countUp);
-    rv.unobserve(e.target);
-  }
+  for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); rv.unobserve(e.target); }
 }, { rootMargin: "0px 0px -8% 0px" });
-const startSite = () => $$(".r").forEach(el => {
-  el.style.setProperty("--i", [...el.parentElement.children].filter(c => c.classList.contains("r")).indexOf(el));
-  rv.observe(el);
-});
+const startSite = () => {
+  $$(".r").forEach(el => {
+    el.style.setProperty("--i", [...el.parentElement.children].filter(c => c.classList.contains("r")).indexOf(el));
+    rv.observe(el);
+  });
+  typeIn();
+};
+
+// Copy buttons.
+$$(".copy").forEach(b => b.addEventListener("click", () => {
+  navigator.clipboard.writeText(b.dataset.copy).then(() => {
+    b.textContent = "copied";
+    setTimeout(() => b.textContent = "copy", 1500);
+  });
+}));
+
+// Hide résumé buttons until resume.pdf is added to the site folder.
+fetch("resume.pdf", { method: "HEAD" }).then(r => { if (!r.ok) throw 0; })
+  .catch(() => $$("[data-resume]").forEach(a => a.hidden = true));
 
 // Intro: first-person ride down a road into the site. Plays once per visit.
 const intro = $("#intro");
@@ -660,10 +657,6 @@ else {
   intro.addEventListener("click", finish);
   addEventListener("keydown", finish, { once: true });
 }
-
-// Hide résumé buttons until resume.pdf is added to the site folder.
-fetch("resume.pdf", { method: "HEAD" }).then(r => { if (!r.ok) throw 0; })
-  .catch(() => $$("[data-resume]").forEach(a => a.hidden = true));
 </script>
 </body>
 </html>
