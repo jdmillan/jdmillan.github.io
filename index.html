@@ -43,7 +43,7 @@
 
 * { box-sizing: border-box; margin: 0; }
 [hidden] { display: none !important; }
-html { scroll-snap-type: y mandatory; scroll-behavior: smooth; scroll-padding-top: 72px; }
+html { scroll-snap-type: y proximity; scroll-behavior: smooth; scroll-padding-top: 72px; }
 body { background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; transition: --c1 1.4s var(--ease), --c2 1.4s var(--ease), --c3 1.4s var(--ease); }
 body[data-section="work"] { --c1: #ff5a1f; --c2: #ff1f7a; --c3: #f5a00b; }
 body[data-section="experience"] { --c1: #2563ff; --c2: #8b3dff; --c3: #00c2d8; }
@@ -69,14 +69,11 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .label { font: 500 12px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
 
 /* ---------- Building blocks ---------- */
-.card { position: relative; border-radius: var(--r3); border: 1px solid var(--line); background: var(--surface); backdrop-filter: blur(16px); }
-.card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.08), transparent 45%); opacity: 0; transition: opacity .4s; }
-.card:hover::after { opacity: 1; }
-.pad { padding: var(--s6); }
-.chips { display: flex; flex-wrap: wrap; gap: var(--s2); }
-.chip { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-2); font-size: 14px; font-weight: 500; white-space: nowrap; }
+.card { position: relative; }
+.chips { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); }
+.chip { font-size: 15px; font-weight: 500; color: var(--ink); white-space: nowrap; }
 /* Logo chips: devicon logos, tinted white so they match the type */
-.chip.logo { display: inline-flex; align-items: center; gap: 7px; padding-left: 10px; }
+.chip.logo { display: inline-flex; align-items: center; gap: 8px; }
 .chip.logo img { width: 16px; height: 16px; filter: brightness(0) invert(1); opacity: .85; }
 .chip.logo img + img { margin-left: -2px; }
 .btn { display: inline-flex; align-items: center; gap: var(--s2); height: 46px; padding: 0 var(--s5); border-radius: 999px; border: 1px solid var(--line-2); background: var(--surface); backdrop-filter: blur(12px); font-size: 15px; font-weight: 500; text-decoration: none; white-space: nowrap; transition: transform .4s var(--ease), border-color .3s, background .3s; }
@@ -107,14 +104,19 @@ main { transition: opacity 1s var(--ease) .2s, transform 1.2s var(--ease) .2s; }
 .ink { position: absolute; bottom: 0; left: 0; width: 0; height: 2px; border-radius: 2px; background: var(--grad); transition: left .5s var(--ease), width .5s var(--ease); }
 
 /* ---------- Sections ---------- */
-section { position: relative; min-height: 100svh; max-width: var(--wrap); margin: 0 auto; padding: 112px var(--s5) var(--s8); display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
+section { position: relative; max-width: var(--wrap); margin: 0 auto; padding: var(--s9) var(--s5); display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
 .head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s6); margin-bottom: var(--s7); padding-bottom: var(--s5); border-bottom: 1px solid var(--line); }
 .head h2 { margin-top: var(--s3); font-size: clamp(36px, 5vw, 60px); }
 .head p { max-width: 38ch; color: var(--ink-2); font-size: 16px; }
 
+#about, #contact { min-height: 100svh; }
+#about { padding-top: 112px; }
+
 /* About */
 .hero { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--s7) var(--s8); align-items: center; }
-.status { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 12px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--surface); font: 500 13px/1 var(--mono); color: var(--ink-2); }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3) var(--s5); }
+.status, .based { display: inline-flex; align-items: center; gap: 10px; font: 500 13px/1 var(--mono); color: var(--ink-2); }
+.based svg { width: 15px; height: 15px; color: var(--accent); }
 .status i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: pulse 2.2s infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(52,211,153,.6); } 70%, 100% { box-shadow: 0 0 0 9px rgba(52,211,153,0); } }
 h1 { margin-top: var(--s5); font-size: clamp(38px, 4.4vw, 60px); }
@@ -131,9 +133,9 @@ h1 { margin-top: var(--s5); font-size: clamp(38px, 4.4vw, 60px); }
 
 /* Work: hover (or tap/focus) slides the summary over the screenshot */
 .work { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); }
-.proj { overflow: hidden; transition: transform .5s var(--ease), border-color .4s, box-shadow .5s var(--ease); }
-.proj:hover, .proj:focus { transform: translateY(-4px); border-color: var(--line-2); box-shadow: 0 30px 60px -30px rgba(0,0,0,.8); }
-.proj .media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--line); }
+.proj { outline-offset: 8px; }
+.proj .media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r2); box-shadow: 0 30px 60px -30px rgba(0,0,0,.9); transition: transform .6s var(--ease); }
+.proj:hover .media, .proj:focus .media { transform: translateY(-4px); }
 .proj .media img { width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform .8s var(--ease); }
 .proj:hover .media img { transform: scale(1.04); }
 .peek { position: absolute; top: var(--s3); right: var(--s3); z-index: 2; padding: 4px 10px; border-radius: 999px; background: rgba(6,4,11,.7); backdrop-filter: blur(8px); font: 500 11px var(--mono); color: var(--ink-2); transition: opacity .2s; }
@@ -144,15 +146,15 @@ h1 { margin-top: var(--s5); font-size: clamp(38px, 4.4vw, 60px); }
 .facts { display: flex; gap: var(--s6); margin-top: var(--s4); }
 .facts b { display: block; font-size: 20px; font-weight: 600; letter-spacing: -.02em; }
 .facts span { font: 400 12px var(--mono); color: var(--ink-3); }
-.proj .body { padding: var(--s5) var(--s6) var(--s6); }
+.proj .body { padding-top: var(--s5); }
 .proj h3 { margin-top: var(--s3); font-size: 28px; }
 .proj .body > p { margin-top: var(--s2); color: var(--ink-2); }
 .proj .chips { margin-top: var(--s4); }
-.proj .chip { font: 500 12px var(--mono); padding: 4px 10px; }
+.proj .chip { font: 500 12px var(--mono); color: var(--ink-3); }
 .note { margin-top: var(--s5); font-size: 15px; color: var(--ink-3); }
 
 /* Experience */
-.xp { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s5); align-items: start; }
+.xp { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s8); align-items: start; }
 .role h3 { margin-top: var(--s3); font-size: 26px; letter-spacing: -.02em; line-height: 1.15; }
 .role .where { margin-top: var(--s2); color: var(--ink-2); }
 .facts-list { margin-top: var(--s5); border-top: 1px solid var(--line); }
@@ -165,16 +167,16 @@ h1 { margin-top: var(--s5); font-size: clamp(38px, 4.4vw, 60px); }
 .impact li::before { content: counter(n, decimal-leading-zero); font: 500 13px/1.9 var(--mono); color: var(--accent); }
 .impact b { color: var(--ink); font-weight: 600; }
 .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s5); margin-top: var(--s5); }
-.carry { margin-top: var(--s5); }
+.carry { margin-top: var(--s8); }
 .carry h3, .groups h3 { font-size: 22px; letter-spacing: -.02em; }
-.map { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); margin-top: var(--s5); }
-.map li { padding: var(--s4); border-radius: var(--r1); background: var(--surface); border: 1px solid var(--line); }
+.map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 var(--s6); margin-top: var(--s4); }
+.map li { padding: var(--s4) 0; border-top: 1px solid var(--line); }
 .map b { display: block; font-size: 15px; font-weight: 600; }
 .map span { display: block; margin-top: var(--s1); font-size: 14px; color: var(--ink-2); }
 .map span::before { content: "→ "; color: var(--accent); }
 
 /* Skills & education */
-.sk { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s5); align-items: start; }
+.sk { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s8); align-items: start; }
 .edu .slot { --ar: 16 / 9; margin-bottom: var(--s5); }
 .edu h3 { margin-top: var(--s2); font-size: 26px; letter-spacing: -.02em; }
 .edu p { margin-top: var(--s1); color: var(--ink-2); }
@@ -225,9 +227,8 @@ h1 { margin-top: var(--s5); font-size: clamp(38px, 4.4vw, 60px); }
   .top .btn { display: none; }
   .tabs { gap: var(--s3); }
   .tabs a { font-size: 13px; }
-  section { padding: 120px var(--s4) var(--s7); }
-  .pad { padding: var(--s5); }
-  .proj .body { padding: var(--s5); }
+  section { padding: var(--s8) var(--s4); }
+  #about { padding-top: 120px; }
   .map { grid-template-columns: 1fr; }
   .row { grid-template-columns: 1fr; gap: var(--s2); }
   .stat { padding-right: var(--s3); }
@@ -237,10 +238,9 @@ h1 { margin-top: var(--s5); font-size: clamp(38px, 4.4vw, 60px); }
 }
 /* Hobbies */
 .hobbies { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s5); }
-.hobby { overflow: hidden; transition: transform .5s var(--ease), border-color .4s, box-shadow .5s var(--ease); }
-.hobby:hover { transform: translateY(-4px); border-color: var(--line-2); }
-.hobby .slot { --ar: 4 / 5; border-radius: 0; border-width: 0 0 1px; }
-.hobby .body { padding: var(--s5); }
+.hobby .slot { --ar: 4 / 5; transition: transform .6s var(--ease); }
+.hobby:hover .slot { transform: translateY(-4px); }
+.hobby .body { padding-top: var(--s4); }
 .hobby h3 { margin-top: var(--s2); font-size: 22px; letter-spacing: -.02em; }
 .hobby p { margin-top: var(--s2); font-size: 15px; color: var(--ink-2); }
 @media (max-width: 900px) { .hobbies { grid-template-columns: 1fr 1fr; } .hobby .slot { --ar: 1 / 1; } }
@@ -321,7 +321,10 @@ try { if (!sessionStorage.rode && !matchMedia("(prefers-reduced-motion: reduce)"
   <section id="about">
     <div class="hero">
       <div>
-        <span class="status r"><i></i>Open to SWE &amp; data internships</span>
+        <div class="meta r">
+          <span class="based"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>Based in Queens, New York</span>
+          <span class="status"><i></i>Open to SWE &amp; data internships</span>
+        </div>
         <h1 class="r">Navy veteran turned CS student, building <em>software</em> and making sense of <em>data.</em></h1>
         <p class="lede r">For five years I kept real-time data networks running for a U.S. Navy carrier strike group. Now I study computer science at <a href="https://www.stjohns.edu" target="_blank" rel="noopener">St. John's University</a> and I'm looking for software engineering and data internships.</p>
         <div class="seek r">
@@ -407,7 +410,7 @@ try { if (!sessionStorage.rode && !matchMedia("(prefers-reduced-motion: reduce)"
       <p>U.S. Navy, 2019 – 2024. Real-time data, secure networks and a team to lead.</p>
     </div>
     <div class="xp">
-      <div class="card pad role r">
+      <div class="card role r">
         <span class="label">Sep 2019 – Dec 2024 · San Diego, CA</span>
         <h3>Network Operations &amp; Data Systems Specialist</h3>
         <p class="where">U.S. Navy · Aircraft Carrier Strike Group</p>
@@ -418,7 +421,7 @@ try { if (!sessionStorage.rode && !matchMedia("(prefers-reduced-motion: reduce)"
           <div><dt class="label">Award</dt><dd>Navy &amp; Marine Corps Achievement Medal</dd></div>
         </dl>
       </div>
-      <div class="card pad r">
+      <div class="card r">
         <ol class="impact">
           <li><span><b>Led a 10-person network operations team</b> across two deployments, keeping secure data and communications running for 5,000+ people.</span></li>
           <li><span><b>Ran real-time command and control software</b> and data-sharing networks linking ships, aircraft and allied partners across 3 strike groups.</span></li>
@@ -435,7 +438,7 @@ try { if (!sessionStorage.rode && !matchMedia("(prefers-reduced-motion: reduce)"
       <figure class="slot r" data-label="My team" data-file="img/navy-2.jpg"><img src="img/navy-2.jpg" alt="Network operations team" onerror="this.remove()"></figure>
       <figure class="slot r" data-label="Achievement Medal" data-file="img/navy-3.jpg"><img src="img/navy-3.jpg" alt="Navy and Marine Corps Achievement Medal ceremony" onerror="this.remove()"></figure>
     </div>
-    <div class="card pad carry r">
+    <div class="card carry r">
       <h3>How it carries over to software and data</h3>
       <ul class="map">
         <li><b>Real-time C2 data</b><span>Streaming data and real-time systems</span></li>
@@ -455,7 +458,7 @@ try { if (!sessionStorage.rode && !matchMedia("(prefers-reduced-motion: reduce)"
       <p>What I build with, and what I learned leading a team.</p>
     </div>
     <div class="sk">
-      <div class="card pad edu r">
+      <div class="card edu r">
         <figure class="slot" data-label="Campus photo" data-file="img/school.jpg"><img src="img/school.jpg" alt="St. John's University campus" onerror="this.remove()"></figure>
         <span class="label">B.S. Computer Science · Expected 2028</span>
         <h3>St. John's University</h3>
@@ -467,7 +470,7 @@ try { if (!sessionStorage.rode && !matchMedia("(prefers-reduced-motion: reduce)"
           <span class="chip">Programming I &amp; II</span>
         </div>
       </div>
-      <div class="card pad groups r">
+      <div class="card groups r">
         <h3>Skills</h3>
         <div class="row"><span class="label">Languages</span><div class="chips"><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/java/java-plain.svg" alt="" width="16" height="16">Java</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/typescript/typescript-plain.svg" alt="" width="16" height="16">TypeScript</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-plain.svg" alt="" width="16" height="16">JavaScript</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-plain.svg" alt="" width="16" height="16"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/css3/css3-plain.svg" alt="" width="16" height="16">HTML/CSS</span></div></div>
         <div class="row"><span class="label">Tools</span><div class="chips"><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/threejs/threejs-original.svg" alt="" width="16" height="16">Three.js / WebGL</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vitejs/vitejs-plain.svg" alt="" width="16" height="16">Vite</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/git/git-plain.svg" alt="" width="16" height="16"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/github/github-original.svg" alt="" width="16" height="16">Git / GitHub</span><span class="chip logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/eclipse/eclipse-plain.svg" alt="" width="16" height="16">Eclipse</span></div></div>
@@ -509,7 +512,7 @@ try { if (!sessionStorage.rode && !matchMedia("(prefers-reduced-motion: reduce)"
   <section id="contact">
     <span class="label r">06 — Contact</span>
     <h2 class="r">Let's <em>talk.</em></h2>
-    <p class="lede r">Hiring software engineering or data interns? I'd love to hear about the role.</p>
+    <p class="lede r">Based in Queens, New York. Hiring software engineering or data interns? I'd love to hear about the role.</p>
     <a class="email r" href="mailto:jdcm0212@gmail.com">jdcm0212@gmail.com</a>
     <div class="ctas r">
       <a class="btn" href="https://github.com/jdmillan" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>GitHub</a>
@@ -657,13 +660,6 @@ else {
   intro.addEventListener("click", finish);
   addEventListener("keydown", finish, { once: true });
 }
-
-// Soft spotlight follows the pointer on cards.
-$$(".card").forEach(c => c.addEventListener("pointermove", e => {
-  const r = c.getBoundingClientRect();
-  c.style.setProperty("--mx", e.clientX - r.left + "px");
-  c.style.setProperty("--my", e.clientY - r.top + "px");
-}));
 
 // Hide résumé buttons until resume.pdf is added to the site folder.
 fetch("resume.pdf", { method: "HEAD" }).then(r => { if (!r.ok) throw 0; })
